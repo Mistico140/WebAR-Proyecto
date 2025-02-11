@@ -6,9 +6,14 @@
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar-nft.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam;" vr-mode-ui="enabled: false">
-        <!-- Imagen flotante en AR sin marcador -->
-        <a-image src="HIRO.jpg" position="0 1.5 -3" scale="2 2 2"></a-image>
+    <a-scene 
+        embedded
+        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; 
+              detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+        vr-mode-ui="enabled: false">
+        
+        <!-- Imagen flotante en AR -->
+        <a-image src="sorpresa.png" position="0 1.5 -3" scale="2 2 2"></a-image>
 
         <!-- Cámara AR -->
         <a-entity camera></a-entity>
