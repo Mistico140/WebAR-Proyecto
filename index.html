@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebVR con Cámara en Vivo</title>
+    <!--title>WebVR con Cámara en Vivo</title -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
@@ -12,7 +12,7 @@
         </a-assets>
 
         <!-- Cámara VR -->
-        <a-camera position="0 0 0">
+        <a-camera position="0 1.6 -3">
             <a-cursor color="white"></a-cursor>
         </a-camera>
 
@@ -26,7 +26,7 @@
         </a-plane>
 
         <!-- Imagen flotante en VR -->
-        <a-image src="HIRO.jpg" position="0 1.6 -3" scale="1.5 1.5 1.5"></a-image>
+        <a-image src="HIRO.jpg" position="0 0 -3" scale="1.5 1.5 1.5"></a-image>
     </a-scene>
 
     <script>
