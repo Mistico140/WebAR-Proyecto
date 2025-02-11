@@ -7,8 +7,8 @@
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs="sourceType: webcam;">
-        <!-- Imagen flotante en AR -->
-        <a-image src="HIRO.jpg" position="0 1 -2" scale="2 2 2"></a-image>
+        <!-- Imagen flotando en AR con transparencia -->
+        <a-image src="HIRO.jpg" position="0 1 -2" scale="2 2 2" material="transparent:true; opacity: 1;"></a-image>
 
         <!-- Cámara AR -->
         <a-entity camera></a-entity>
