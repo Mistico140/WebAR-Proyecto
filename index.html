@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Realidad Virtual con A-Frame</title>
+    <title>Realidad Virtual con Cámara en Vivo</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
     <a-scene>
-        <!-- Cámara y control de VR -->
+        <!-- Definir un video como fondo (usando la cámara del dispositivo) -->
+        <a-assets>
+            <video id="backgroundVideo" autoplay loop playsinline webkit-playsinline></video>
+        </a-assets>
+
+        <!-- Cámara VR -->
         <a-camera position="0 1.6 0">
             <a-cursor color="white"></a-cursor>
         </a-camera>
 
-        <!-- Fondo VR (puede ser un color o imagen) -->
-        <a-sky color="#000000"></a-sky>
+        <!-- Fondo VR: La cámara del usuario -->
+        <a-video src="#backgroundVideo" width="16" height="9" position="0 0 -10"></a-video>
 
-        <!-- Imagen sorpresa flotando en VR -->
+        <!-- Imagen flotante en VR -->
         <a-image src="HIRO.jpg" position="0 1.6 -3" scale="2 2 2"></a-image>
     </a-scene>
+
+    <script>
+        // Obtener acceso a la cámara y asignarla al video de fondo
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                let video = document.getElementById("backgroundVideo");
+                video.srcObject = stream;
+            })
+            .catch(function (err) {
+                console.error("No se pudo acceder a la cámara:", err);
+            });
+    </script>
 </body>
 </html>
