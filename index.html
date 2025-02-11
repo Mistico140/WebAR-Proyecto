@@ -5,10 +5,10 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 </head>
 <body>
-    <a-scene>
+    <a-scene xr-mode="none"> <!-- Desactiva AR para evitar el mensaje -->
         <!-- Definir un video como fondo (usando la cámara del dispositivo) -->
         <a-assets>
-            <video id="backgroundVideo" autoplay loop playsinline webkit-playsinline></video>
+            <video id="backgroundVideo" autoplay playsinline webkit-playsinline></video>
         </a-assets>
 
         <!-- Cámara VR -->
@@ -16,22 +16,32 @@
             <a-cursor color="white"></a-cursor>
         </a-camera>
 
-        <!-- Fondo VR: La cámara del usuario -->
-        <a-video src="#backgroundVideo" width="16" height="9" position="0 0 -10"></a-video>
+        <!-- Fondo VR: La cámara trasera del usuario -->
+        <a-video src="#backgroundVideo" width="20" height="10" position="0 0 -5"></a-video>
 
         <!-- Imagen flotante en VR -->
-        <a-image src="HIRO.jpg" position="0 1.6 -3" scale="2 2 2"></a-image>
+        <a-image src="HIRO.jpg" position="0 1.6 -3" scale="1.5 1.5 1.5"></a-image>
     </a-scene>
 
     <script>
-        // Obtener acceso a la cámara y asignarla al video de fondo
-        navigator.mediaDevices.getUserMedia({ video: true })
+        // Obtener acceso a la cámara trasera y asignarla al video de fondo
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
             .then(function (stream) {
                 let video = document.getElementById("backgroundVideo");
                 video.srcObject = stream;
             })
             .catch(function (err) {
-                console.error("No se pudo acceder a la cámara:", err);
+                console.error("No se pudo acceder a la cámara trasera, intentando la frontal:", err);
+                
+                // Si la cámara trasera no está disponible, usa la frontal
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        let video = document.getElementById("backgroundVideo");
+                        video.srcObject = stream;
+                    })
+                    .catch(function (err) {
+                        console.error("No se pudo acceder a ninguna cámara:", err);
+                    });
             });
     </script>
 </body>
