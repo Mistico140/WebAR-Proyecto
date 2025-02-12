@@ -10,16 +10,20 @@
         embedded 
         arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;"
         vr-mode-ui="enabled: false">
-        
+
+        <!-- Agregar luz ambiental para mejorar la visibilidad -->
+        <a-light type="ambient" color="#ffffff"></a-light>
+
         <!-- Cámara AR -->
         <a-entity camera></a-entity>
 
-        <!-- Imagen flotante en el espacio AR -->
+        <!-- Imagen flotante en el espacio AR con mejor escala y posición -->
         <a-entity 
-    geometry="primitive: plane; height: 1.5; width: 1.5" 
-    material="shader: flat; src: https://upload.wikimedia.org/wikipedia/commons/3/3f/HIRO.jpg; transparent: true"
-    position="0 1 -2">
+            geometry="primitive: plane; height: 2; width: 2" 
+            material="shader: flat; src: HIRO.jpg; transparent: true"
+            position="0 1.5 -2">
         </a-entity>
+
     </a-scene>
 </body>
 </html>
