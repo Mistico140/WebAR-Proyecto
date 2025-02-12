@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebAR Imagen Flotante</title>
+    <title>WebAR Imagen con Marcador</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene 
-        embedded 
-        arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;"
-        vr-mode-ui="enabled: false">
-
-        <!-- Agregar luz ambiental para mejorar la visibilidad -->
+    <a-scene embedded arjs vr-mode-ui="enabled: false">
+        
+        <!-- Luz para mejorar la visibilidad -->
         <a-light type="ambient" color="#ffffff"></a-light>
+
+        <!-- Marcador Hiro (imagen flotará sobre este marcador) -->
+        <a-marker preset="hiro">
+            <a-entity 
+                geometry="primitive: plane; height: 2; width: 2" 
+                material="shader: flat; src: HIRO.jpg; transparent: true"
+                position="0 0 0" 
+                scale="0.5 0.5 0.5"> 
+            </a-entity>
+        </a-marker>
 
         <!-- Cámara AR -->
         <a-entity camera></a-entity>
 
-        <!-- Imagen flotante en el espacio AR con mejor escala y posición -->
-        <a-entity 
-            gps-entity-place="latitude: 37.7749; longitude: -122.4194"
-            geometry="primitive: plane; height: 2; width: 2" 
-            material="shader: flat; src: HIRO.jpg; transparent: true"
-            position="0 0 -1"
-            scale="0.2 0.2 0.2"> 
-        </a-entity>
-
     </a-scene>
 </body>
 </html>
+
