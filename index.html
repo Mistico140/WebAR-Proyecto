@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebAR Imagen Flotante</title>
+    <title>WebVR con Cámara en Vivo</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar-nft.min.js"></script>
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <a-scene 
-        embedded 
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-        vr-mode-ui="enabled: false">
+<body>
+    <a-scene vr-mode-ui="enabled: true">
+        <!-- Definir el video como fondo -->
+        <a-assets>
+            <video id="backgroundVideo" autoplay playsinline webkit-playsinline></video>
+        </a-assets>
 
-        <!-- Luz para mejorar la visibilidad -->
-        <a-light type="ambient" color="#ffffff"></a-light>
+        <!-- Cámara VR -->
+        <a-camera position="0 1.6 0">
+            <a-cursor color="white"></a-cursor>
+        </a-camera>
 
-        <!-- Imagen flotante en AR sin marcador -->
-        <a-entity 
-            position="0 1.5 -3"
-            scale="1 1 1"
-            material="shader: flat; src: HIRO.jpg; transparent: true;">
-            <a-plane height="2" width="2"></a-plane>
-        </a-entity>
+        <!-- Plano gigante que actúa como fondo con la cámara en vivo -->
+        <a-plane 
+            src="#backgroundVideo" 
+            position="0 1.6 -4" 
+            width="10" 
+            height="5.5" 
+            rotation="0 0 0">
+        </a-plane>
 
-        <!-- Cámara AR -->
-        <a-entity camera></a-entity>
-
+        <!-- Imagen flotante en VR -->
+        <a-image src="HIRO.jpg" position="0 1.6 -3" scale="1.5 1.5 1.5"></a-image>
     </a-scene>
+
+    <script>
+        // Acceder a la cámara trasera
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+            .then(function (stream) {
+                let video = document.getElementById("backgroundVideo");
+                video.srcObject = stream;
+            })
+            .catch(function (err) {
+                console.warn("No se pudo acceder a la cámara trasera, usando la frontal:", err);
+                
+                // Si la trasera no está disponible, usa la frontal
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        let video = document.getElementById("backgroundVideo");
+                        video.srcObject = stream;
+                    })
+                    .catch(function (err) {
+                        console.error("No se pudo acceder a ninguna cámara:", err);
+                    });
+            });
+    </script>
 </body>
 </html>
