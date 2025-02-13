@@ -11,8 +11,10 @@
             <video id="backgroundVideo" autoplay playsinline webkit-playsinline></video>
         </a-assets>
 
-        <!-- Cámara AR -->
-         <a-entity camera></a-entity>
+        <!-- Cámara VR -->
+        <a-camera position="0 1.6 0">
+            <a-cursor color="white"></a-cursor>
+        </a-camera>
 
         <!-- Plano gigante que actúa como fondo con la cámara en vivo -->
         <a-plane 
